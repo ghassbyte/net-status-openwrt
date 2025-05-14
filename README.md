@@ -7,7 +7,6 @@ This project provides a Bash script to automatically **monitor internet connecti
 - **Firmware**: [OpenWrt 21.02.1 SR-14 HG680P Kernel 6.1.15-reyre](https://www.youtube.com/watch?v=MaYQSRVp87A&ab_channel=REYRE-WRT)
 
 
-
 ## 🔧 How It Works
 
 - Periodically (via cron every minute), the script pings a reliable web endpoint using `curl`.
@@ -18,6 +17,7 @@ This project provides a Bash script to automatically **monitor internet connecti
 
 The script uses a **fallback URL** (`support.zoom.us`) if the primary one (`ping.xmbb.net`) fails.
 
+---
 
 ## 📂 File Structure
 ```
@@ -27,6 +27,7 @@ net-status-openwrt/
 └── stamp               # Auto-generated timestamp file (used internally)
 ```
 
+---
 
 ## 📦 Installation & Setup
 
@@ -55,6 +56,7 @@ crontab -e
 * * * * * /root/net-status-openwrt/net-detect.sh
 ```
 
+---
 
 ## 🛜 Requirements
 Your OpenWRT build should include:
@@ -68,6 +70,7 @@ opkg update
 opkg install bash curl atinout
 ```
 
+---
 
 ## 🔐 Security
 Do not commit config.conf to GitHub. It contains sensitive tokens.  
@@ -77,6 +80,7 @@ config.conf
 stamp
 ```
 
+---
 
 ## 🧪 Test It
 To manually run and test the script:
@@ -85,17 +89,20 @@ bash /root/net-status-openwrt/net-detect.sh
 ```
 Watch the Telegram message or the modem reset to verify behavior.
 
+---
 
 ## 📬 Telegram Bot Setup
 - Create a new bot via BotFather
 - Get your TG_TOKEN
 - Find your Telegram user or group TG_CHAT_ID using tools like IDBot
 
+---
 
 ## 👨‍🔧 Customization
 You can adjust retry logic and URLs inside the script.  
 The modem reset logic can be adapted if your modem responds to different AT commands.
 
+---
 
 ## 🛠️ Troubleshooting
 If modem doesn’t reset, try verifying AT command support:
@@ -110,10 +117,12 @@ curl -s -X POST https://api.telegram.org/bot<your_token>/sendMessage \
      -d text="Hello from OpenWRT"
 ```
 
+---
 
 ## 🧾 License
 MIT License — Free to use and modify.
 
+---
 
 ## 💬 Credits
 Maintained by ghassbyte  
