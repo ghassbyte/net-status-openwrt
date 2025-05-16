@@ -1,5 +1,5 @@
 #!/bin/bash
-# v1.0 - HTTP-based network check with fallback and retry logic
+# v1.1 - HTTP-based network check with fallback and retry logic
 
 # Configuration
 path=/root/net-status-openwrt
@@ -48,6 +48,13 @@ check_url() {
   echo $SUCCESS_COUNT
 }
 
+# Function to restart OpenClash
+restart_openclash() {
+  /etc/init.d/openclash stop
+  sleep 1
+  /etc/init.d/openclash start
+}
+
 # Try primary URL
 SUCCESS_COUNT=$(check_url "$PRIMARY_URL")
 
@@ -81,10 +88,12 @@ if [ -f "$STAMP_FILE" ]; then
 
   if [ $elapsed_time -ge 60 ] && [ $elapsed_time -lt 120 ]; then
     ifdown wan1
+    restart_openclash
     ngereset
 
   elif [ $elapsed_time -ge 300 ] && [ $elapsed_time -lt 360 ]; then
     ifdown wan1
+    restart_openclash
     ngereset
 
   elif [ $elapsed_time -ge 540 ]; then
