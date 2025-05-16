@@ -1,5 +1,5 @@
 #!/bin/bash
-# v1.1 - HTTP-based network check with fallback and retry logic
+# v1.2 - HTTP-based network check with fallback and retry logic
 
 # Configuration
 path=/root/net-status-openwrt
@@ -9,6 +9,12 @@ STAMP_FILE=${path}/stamp
 # Primary and fallback URLs
 PRIMARY_URL="http://ping.xmbb.net/"
 FALLBACK_URL="https://support.zoom.us/"
+
+# Skip execution if system uptime < 5 minutes
+uptime_seconds=$(cut -d. -f1 /proc/uptime)
+if [ "$uptime_seconds" -lt 300 ]; then
+  exit 0
+fi
 
 # Function to reset modem
 ngereset() {
